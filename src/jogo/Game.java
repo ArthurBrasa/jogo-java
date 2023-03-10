@@ -10,10 +10,13 @@ public class Game extends BasicGame {
     
     private Rectangle player;
     private Rectangle platform;
+    private Rectangle platform2;
     
     private boolean isJumping;
+    private boolean jump; 
     private float jumpVelocity;
     private float gravity;
+    private float rangeJumping;
 
     @Override
     public void init(GameContainer gc) throws SlickException {
@@ -21,10 +24,11 @@ public class Game extends BasicGame {
         // Criando objetos do jogo
         player = new Rectangle(50, 50, 50, 50);
         platform = new Rectangle(0, gc.getHeight() - 50, gc.getWidth(), 50);
+        platform2 = new Rectangle(0, 100, 200, 50);
         
-        isJumping = false;
-        jumpVelocity = 0;
-        gravity = 0.005f;
+        isJumping = true;
+        jumpVelocity = 0.1f;
+        gravity = 0.001f;
         
         
     }
@@ -39,32 +43,30 @@ public class Game extends BasicGame {
             player.setX(player.getX() + delta * 0.1f);
         }
         
-        System.out.println(player.getCenterY());
-        if(!isJumping){
-            if(gc.getInput().isKeyPressed(Input.KEY_UP)){
-                gravity = - 0.005f;
-            }
-//            isJumping = false;
-        }
+        // Verifica Colisão com a plataforma
+        boolean isOnGround = player.intersects(platform);
+        boolean isOnGround2 = player.intersects(platform2);
         
-        // VERIFICAR Colisao com a plataforma
-        if(player.intersects(platform)) {
-    
-      
-            if(player.getMaxY() > platform.getY() && player.getMaxY() - jumpVelocity * delta <= platform.getY()){
-                isJumping = false;
-                player.setY(platform.getY() - player.getHeight());
- 
-           
-         
+        if(isOnGround || isOnGround2) {
+            isJumping = false;
+            if(gc.getInput().isKeyPressed(Input.KEY_UP)){
+                jumpVelocity = -0.5f;
+                isJumping = true;
             }
               
         }else {
             isJumping = true;
-            jumpVelocity += gravity * delta;
-            player.setY(player.getY() + jumpVelocity * delta);
+            
         }
         
+        System.out.println(jumpVelocity);
+        System.out.println("y player : " + player.getY());
+        // GRAVIDADE GAME
+        if(isJumping){
+            jumpVelocity += gravity * delta;
+            player.setY(player.getY() + jumpVelocity * delta);
+            
+        }
     }
 
     @Override
@@ -73,6 +75,7 @@ public class Game extends BasicGame {
         g.fill(player);
         g.setColor(Color.yellow);
         g.fill(platform);
+        g.fill(platform2);
     }
     
     public Game (String title){
