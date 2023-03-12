@@ -9,6 +9,11 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public interface Collision {
     
+    /**
+     *
+     * @param object
+     * @return
+     */
     public boolean collisionDetection(Rectangle object);
     
 }

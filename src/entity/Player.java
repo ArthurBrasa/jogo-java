@@ -6,6 +6,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import GameConfigs.Collision;
+import GameConfigs.GlobalVariables;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -29,18 +30,25 @@ public class Player extends Entity implements Collision{
 
     @Override
     public void update(GameContainer gc, float gravity, ArrayList<Rectangle> grounds) {
-        if(gc.getInput().isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A) ){
-            colision.setX(colision.getX() - velocity);
+        if(gc.getInput().isKeyDown(Input.KEY_LEFT) || gc.getInput().isKeyDown(Input.KEY_A)){
+            colision.setX(colision.getX() - velocity);          
+            
         }
         if(gc.getInput().isKeyDown(Input.KEY_RIGHT) || gc.getInput().isKeyDown(Input.KEY_D)){
             colision.setX(colision.getX() + velocity);
+
         }
+
         
+      
         for(Rectangle ground : grounds){
+ 
             this.jump(gc, ground);
+            
             if(!isJumping){
                 break;
             }
+            
         }
 
         // GRAVIDADE GAME
@@ -49,17 +57,22 @@ public class Player extends Entity implements Collision{
             colision.setY(colision.getY() + jumpVelocity);
             
         }
+    
+    
+    }
+    private boolean isOnGround(Rectangle object){
+        return this.collisionDetection(object);
     }
     
     private void jump(GameContainer gc, Rectangle ground){
-        boolean isOnGround = this.collisionDetection(ground);
         
-        if(isOnGround && jumpVelocity>0){ // cross platform
+        
+        if(isOnGround(ground) && jumpVelocity>0){ // cross platform
             isJumping = false;
             if(gc.getInput().isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)){
-                jumpVelocity = -1.5f;
+                jumpVelocity = GlobalVariables.JUMP_VELOCITY_UP;
                 isJumping = true;
-            }
+        }
         }else{
             isJumping = true;
         }  
