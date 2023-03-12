@@ -5,7 +5,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import GameConfigs.Colision;
+import GameConfigs.Collision;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -14,7 +14,7 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author arthur
  */
-public class Player extends Entity implements Colision{
+public class Player extends Entity implements Collision{
     
 
     public Player(int x, int y, int tileSize, float velocity, float jumpVelocity) {
@@ -42,7 +42,7 @@ public class Player extends Entity implements Colision{
                 break;
             }
         }
-        System.out.println(jumpVelocity);
+
         // GRAVIDADE GAME
         if(isJumping){
             jumpVelocity += gravity;

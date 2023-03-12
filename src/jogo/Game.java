@@ -19,12 +19,6 @@ public class Game extends BasicGame {
     private Rectangle platform;
     private Rectangle platform2;
     
-    private boolean isJumping;
-    private boolean jump; 
-    private float jumpVelocity;
-    private float gravity;
-    private float rangeJumping;
-
     @Override
     public void init(GameContainer gc) throws SlickException {
         grounds = new ArrayList<>();

@@ -7,8 +7,8 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author arthu
  */
-public interface Colision {
+public interface Collision {
     
-    public boolean collisionDetection(Rectangle colision);
+    public boolean collisionDetection(Rectangle object);
     
 }
