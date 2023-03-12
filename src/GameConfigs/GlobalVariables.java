@@ -7,13 +7,13 @@ package GameConfigs;
 public class GlobalVariables {
     
     // Screen Settings
-    static final int ORIGINAL_TILE_SIZE = 16;
-    static final int SCALE = 3;
+    static final int ORIGINAL_TILE_SIZE = 32;
+    static final int SCALE = 2;
     public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE;
     
     // columns & rows
-    static int MAX_SCREEN_COL = 20;
-    static int MAX_SCRENN_ROW = 14;
+    static int MAX_SCREEN_COL = 10;
+    static int MAX_SCRENN_ROW = 12;
     
     // width & height
     public static int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL;
