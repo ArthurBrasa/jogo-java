@@ -37,7 +37,7 @@ public class Player extends Entity implements Colision{
         }
         
         for(Rectangle ground : grounds){
-            this.jump(gc, ground, gravity);
+            this.jump(gc, ground);
             if(!isJumping){
                 break;
             }
@@ -51,19 +51,18 @@ public class Player extends Entity implements Colision{
         }
     }
     
-    private void jump(GameContainer gc, Rectangle ground, float gravity){
+    private void jump(GameContainer gc, Rectangle ground){
         boolean isOnGround = this.collisionDetection(ground);
+        
         if(isOnGround && jumpVelocity>0){ // cross platform
             isJumping = false;
-            jumpVelocity = 0;
-            // Player JUMP
             if(gc.getInput().isKeyPressed(Input.KEY_UP) || gc.getInput().isKeyPressed(Input.KEY_W)){
                 jumpVelocity = -1.5f;
                 isJumping = true;
             }
         }else{
             isJumping = true;
-        }     
+        }  
     }
 
     @Override
