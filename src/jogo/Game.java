@@ -8,6 +8,7 @@ import GameConfigs.GlobalVariables;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.geom.Shape;
 import tile.TileManager;
 /**
  *
@@ -16,7 +17,8 @@ import tile.TileManager;
 public class Game extends BasicGame {   
     
     // OBJECTS GAME
-    Player player;
+//    Player player;
+    Rectangle player;
     ArrayList<Rectangle> grounds;
     TileManager tileManager;
     
@@ -27,27 +29,55 @@ public class Game extends BasicGame {
     
     @Override
     public void init(GameContainer gc) throws SlickException {
-        try {
-            tileManager = new TileManager();
-        } catch (IOException ex) {
-            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {;
+//            tileManager = new TileManager();
+//        } catch (IOException ex) {
+//            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        img = new Image("assents/imgTile/ground/land.png");
+//        player = new Player(50, 50, GlobalVariables.TILE_SIZE, GlobalVariables.VELOCITY, GlobalVariables.JUMP_VELOCITY_FALLING_DOW);
+         platform = new Rectangle(gc.getWidth()/2, gc.getHeight()/2, 50, 50);
+         player = new Rectangle(50, 50, 50, 50);
         
-        img = new Image("assents/imgTile/ground/land.png");
-
-        player = new Player(50, 50, GlobalVariables.TILE_SIZE, GlobalVariables.VELOCITY, GlobalVariables.JUMP_VELOCITY_FALLING_DOW);
-  
+        
+        
     }
 
     @Override
     public void update(GameContainer gc, int delta) throws SlickException {
-        player.update(gc, GlobalVariables.GRAVITY, tileManager.getArrayRectangle());      
+//        player.update(gc, GlobalVariables.GRAVITY, tileManager.getArrayRectangle()); 
+          if(gc.getInput().isKeyDown(Input.KEY_W)){
+               player.setY(player.getY() - GlobalVariables.VELOCITY);
+          }
+          if(gc.getInput().isKeyDown(Input.KEY_S)){
+               player.setY(player.getY() + GlobalVariables.VELOCITY);
+          }
+          if(gc.getInput().isKeyDown(Input.KEY_A)){
+               player.setX(player.getX() - GlobalVariables.VELOCITY);
+          }
+          if(gc.getInput().isKeyDown(Input.KEY_D)){
+               player.setX(player.getX() + GlobalVariables.VELOCITY);
+          }
+          
+//          Interação Simplista
+          if(player.intersects(platform)){
+              System.out.println("Interação");
+          }else {
+              System.out.println("No Interação");
+          }
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        tileManager.render();
-        player.render(g);
+        
+//        tileManager.render();
+//        player.render(g);
+    g.setColor(Color.green);
+    g.fill(player);
+    g.setColor(Color.yellow);
+    g.draw(platform);
+
     }
     
     public Game (String title){
@@ -57,7 +87,7 @@ public class Game extends BasicGame {
     public static void main(String[] args) throws SlickException {
         AppGameContainer app = new AppGameContainer(new Game("JumpGame"));
         app.setDisplayMode( GlobalVariables.SCREEN_WIDTH, GlobalVariables.SCREEN_HEIGHT, false);
-        
+       
         // FULL SCREEN
 //         app.setDisplayMode( app.getScreenWidth(), app.getScreenHeight(), false);
 //        app.setVSync(true);
