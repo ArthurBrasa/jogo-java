@@ -62,6 +62,19 @@ public class Game extends BasicGame {
           
 //          Interação Simplista
           if(player.intersects(platform)){
+//              System.out.println(player.getMinY());
+//              System.out.println(player.getMaxY());
+//              System.out.println(player.getMaxY()-player.getMinY());
+                    System.out.println(player.getMaxX());
+                  System.out.println( platform.getMinX() );
+              if(player.getMaxX() >= platform.getMinX() && player.getMinX() < platform.getMinX()){
+                  System.out.println("Colisão na Esquerda");
+              }
+              if(player.getMinX() <= platform.getMaxX() && player.getMaxX() > platform.getMaxX()){
+                  System.out.println("Colisão na Direita");
+              }
+                  
+//              System.exit(delta);
               System.out.println("Interação");
           }else {
               System.out.println("No Interação");
